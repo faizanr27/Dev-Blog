@@ -5,11 +5,11 @@ import BlogPost from './pages/BlogPost';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import CreatePost from './pages/CreatePost';
-import { AuthProvider } from './hooks/useAuth';
+
 
 function App() {
   return (
-    <AuthProvider>
+
       <Router>
         <div className="min-h-screen dark:bg-[#111827] text-white">
           <Navbar />
@@ -22,7 +22,7 @@ function App() {
           </Routes>
         </div>
       </Router>
-    </AuthProvider>
+
   );
 }
 
