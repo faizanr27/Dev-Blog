@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 function CreatePost() {
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
-  const imageRef = useRef<HTMLInputElement>(null);
+  // const imageRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const { refresh } = useContent();
   const navigate = useNavigate()
@@ -16,7 +16,7 @@ function CreatePost() {
     setLoading(true);
     const title = titleRef.current?.value;
     const description = descriptionRef.current?.value;
-    const image = imageRef.current?.files?.[0];
+    // const image = imageRef.current?.files?.[0];
 
     if (!title || !description) {
       alert("Title and Description are required!");
@@ -43,7 +43,7 @@ function CreatePost() {
       alert("Post created successfully!");
       if (titleRef.current) titleRef.current.value = "";
       if (descriptionRef.current) descriptionRef.current.value = "";
-      if (imageRef.current) imageRef.current.value = "";
+      // if (imageRef.current) imageRef.current.value = "";
       refresh();
       navigate('/')
     } catch (error) {
@@ -98,7 +98,7 @@ function CreatePost() {
               Image (Optional)
             </label>
             <input
-              ref={imageRef}
+              // ref={imageRef}
               type="file"
               accept="image/*"
               className="block w-full text-sm text-black dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#2D5FB2]/20 file:text-[#2D5FB2] hover:file:bg-[#2D5FB2]/50"
