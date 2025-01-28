@@ -1,13 +1,28 @@
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 
-const MOCK_POST = {
+type Author = {
+  name: string;
+  avatar: string;
+  bio: string;
+};
+
+type PostDetails = {
+  id: number;
+  title: string;
+  content: string;
+  coverImage: string;
+  publishedAt: string;
+  author: Author;
+};
+
+const MOCK_POST: PostDetails = {
   id: 1,
   title: 'Getting Started with React',
   content: `
     React is a powerful library for building user interfaces. It allows you to create
     reusable UI components that manage their own state and render efficiently.
-    
+
     In this post, we'll cover the basics of React and how to get started with your
     first React application.
   `,
@@ -20,21 +35,25 @@ const MOCK_POST = {
   }
 };
 
+// type BlogPostParams = {
+//   id: string;
+// };
+
 function BlogPost() {
-  const { id } = useParams();
-  const post = MOCK_POST;
+  // const { id } = useParams<BlogPostParams>();
+  const post = MOCK_POST; // Simulate fetching the post by ID
 
   return (
     <article className="max-w-4xl mx-auto px-4 py-20">
-      <img 
+      <img
         src={post.coverImage}
         alt={post.title}
         className="w-full h-[400px] object-cover rounded-xl mb-8"
       />
       <h1 className="text-4xl font-bold mb-6 dark:text-white text-black/80">{post.title}</h1>
-      
+
       <div className="flex items-center gap-4 mb-8 text-gray-600 dark:text-gray-400">
-        <img 
+        <img
           src={post.author.avatar}
           alt={post.author.name}
           className="w-12 h-12 rounded-full"

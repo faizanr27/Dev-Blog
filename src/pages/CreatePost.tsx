@@ -1,4 +1,3 @@
-import AuthForm from '../components/AuthForm/AuthForm';
 
 function CreatePost() {
 
@@ -22,8 +21,8 @@ function CreatePost() {
             Image
           </label>
             <input type="file" />
-            <button 
-          type="submit" 
+            <button
+          type="submit"
           className="bg-[#2D5FB2] text-white px-6 py-3 rounded-md hover:bg-[#2D5FB2]/80 transition duration-300 font-semibold"
         >
           Create Post

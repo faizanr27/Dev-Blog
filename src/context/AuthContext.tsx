@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { checkAuthStatus, loginUser } from '../helpers/communicator'
+import { checkAuthStatus, loginUser, signUpUser } from '../helpers/communicator'
 import axios from 'axios'
 import {BACKEND_URL} from '../config'
 
@@ -20,6 +20,11 @@ interface AuthContextType {
     password:string
   )=>void;
   logout: () => void;
+  signup: (
+    name: string,
+    email:string,
+    password:string
+  ) => void;
   loggingOut: boolean;
 }
 
@@ -56,7 +61,19 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     checkStatus();
 },[]);
 
-
+const signup = async(
+  name:string,
+  email:string,
+  password:string
+) => {
+  const data = await signUpUser(name, email, password);
+  setIsAuthenticated(true);
+  if(data){
+    setUser({email :name})
+    setName(data.name)
+    setIsAuthenticated(true);
+}
+};
 
   const loginWithGoogle = () => {
     window.location.href = `${BACKEND_URL}/auth/google`;
@@ -114,6 +131,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     login,
     loading,
     logout,
+    signup,
     loginWithGoogle,
     loginWithGithub,
     loggingOut,
