@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
+import { FaGithub, FaGoogle } from 'react-icons/fa';
 
 function SignUp() {
-  const { signup } = useAuth();
   const navigate = useNavigate();
-
+  const {  signup, loginWithGoogle, loginWithGithub } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -105,22 +105,28 @@ function SignUp() {
             Sign in
           </Link>
         </p>
-        <p className="border"></p>
-        <p className="text-black self-center text-center">or</p>
-        <div className="flex flex-col gap-4">
-          <button
-            onClick={() => console.log('Sign up with Google')}
-            className="w-full flex items-center justify-center px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white font-medium transition duration-200"
-          >
-            Sign up with Google
-          </button>
-          <button
-            onClick={() => console.log('Sign up with GitHub')}
-            className="w-full flex items-center justify-center px-4 py-2 rounded-lg bg-black hover:bg-gray-800 text-white font-medium transition duration-200"
-          >
-            Sign up with GitHub
-          </button>
-        </div>
+        <div className="flex items-center justify-center gap-2 mt-4">
+                  <span className="border-b w-1/3"></span>
+                  <p className="text-black text-sm text-center">or</p>
+                  <span className="border-b w-1/3"></span>
+                </div>
+
+                <div className="flex flex-col gap-4 mt-6">
+                  <button
+                    onClick={loginWithGoogle}
+                    className="w-full flex items-center justify-center px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white font-medium transition duration-200"
+                  >
+                    <FaGoogle className="mr-2" />
+                    Sign in with Google
+                  </button>
+                  <button
+                    onClick={loginWithGithub}
+                    className="w-full flex items-center justify-center px-4 py-2 rounded-lg bg-black hover:bg-gray-800 text-white font-medium transition duration-200"
+                  >
+                    <FaGithub className="mr-2" />
+                    Sign in with GitHub
+                  </button>
+                </div>
       </div>
     </div>
   );

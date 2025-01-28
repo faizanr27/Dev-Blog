@@ -1,7 +1,7 @@
-// import { Icons } from '@/components/ui/icons';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
+import { FaGithub, FaGoogle } from 'react-icons/fa'; // Import Google and GitHub icons
 
 function SignIn() {
   const { login, loginWithGoogle, loginWithGithub } = useAuth();
@@ -21,7 +21,6 @@ function SignIn() {
       setError('Invalid email or password');
     }
   };
-
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
@@ -88,19 +87,26 @@ function SignIn() {
             Sign up
           </Link>
         </p>
-        <p className="border "></p>
-        <p className="text-black self-center text-center">or</p>
-        <div className="flex flex-col gap-4">
+
+        <div className="flex items-center justify-center gap-2 mt-4">
+          <span className="border-b w-1/3"></span>
+          <p className="text-black text-sm text-center">or</p>
+          <span className="border-b w-1/3"></span>
+        </div>
+
+        <div className="flex flex-col gap-4 mt-6">
           <button
             onClick={loginWithGoogle}
             className="w-full flex items-center justify-center px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white font-medium transition duration-200"
           >
+            <FaGoogle className="mr-2" />
             Sign in with Google
           </button>
           <button
             onClick={loginWithGithub}
             className="w-full flex items-center justify-center px-4 py-2 rounded-lg bg-black hover:bg-gray-800 text-white font-medium transition duration-200"
           >
+            <FaGithub className="mr-2" />
             Sign in with GitHub
           </button>
         </div>
