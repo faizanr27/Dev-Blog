@@ -1,24 +1,29 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { BiChevronDown } from "react-icons/bi";
+import { BiChevronDown, BiSun } from "react-icons/bi";
 import { PiMoonStars } from "react-icons/pi";
-import { BiSun } from "react-icons/bi";
+import React from 'react';
 
-import React from 'react'
+interface NavProps {
+  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+  darkMode: boolean;
+}
 
-function Navbar() {
+function Navbar({ setDarkMode, darkMode }: NavProps) {
   const { name, isAuthenticated, logout } = useAuth();
-  const [dark, setDark] = React.useState(false);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
-  const darkModeHandler = () => {
-    setDark(!dark);
-    document.body.classList.toggle("dark");
-  }
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => {
+      const newMode = !prev;
+      localStorage.setItem("theme", newMode ? "dark" : "light");
+      return newMode;
+    });
+  };
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
-  }
+  };
 
   // Extract the first letter of the username
   const firstLetter = name ? name.charAt(0).toUpperCase() : '';
@@ -35,21 +40,12 @@ function Navbar() {
             DevBlog
           </Link>
           <div className="flex items-center gap-4">
-          {!isAuthenticated && (
-          <button onClick={()=> darkModeHandler()} className='border p-[0.4rem] rounded-md flex flex-row bg-slate-50/80'>
-                {
-
-                    dark && <PiMoonStars fill='#2D5FB2' />
-                }
-                {
-                    !dark &&  <BiSun fill='#2D5FB2' />
-                }
-
-          </button> )}
+            <button onClick={toggleDarkMode} className="border p-[0.4rem] rounded-md flex flex-row bg-slate-50/80">
+              {darkMode ? <PiMoonStars fill='#2D5FB2' /> : <BiSun fill='#2D5FB2' />}
+            </button>
             {isAuthenticated ? (
               <div className="relative">
                 <button onClick={toggleDropdown} className="flex items-center gap-2 text-gray-600 dark:text-white">
-                  {/* Avatar with first letter */}
                   <div className="w-8 h-8 rounded-full dark:bg-[#21314b] bg-[#2D5FB2] text-white flex items-center justify-center text-lg">
                     {firstLetter}
                   </div>
@@ -59,15 +55,13 @@ function Navbar() {
                   <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg">
                     <div className="px-4 py-2 text-gray-700 dark:text-gray-300">{name}</div>
                     <button
-                      onClick={darkModeHandler}
+                      onClick={toggleDarkMode}
                       className="w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
                       Toggle Dark Mode
                     </button>
-                    <button
-                      className="w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                    <Link to="/write">Write</Link>
+                    <button className="w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                      <Link to="/write">Write</Link>
                     </button>
                     <button
                       onClick={logout}
