@@ -15,7 +15,7 @@ function SignUp() {
     try {
       setError(null);
       console.log({ name, email, password });
-      await signup(email, password, name);
+      await signup(name, email, password);
       console.log('Navigating to home...');
       navigate('/');
     } catch (err) {
