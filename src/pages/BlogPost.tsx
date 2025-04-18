@@ -5,9 +5,10 @@ import { format } from 'date-fns';
 import { BACKEND_URL } from "../config";
 
 type Author = {
+  _id?: string;
   name: string;
-  avatar: string;
-  bio: string;
+  avatar?: string;
+  bio?: string;
 };
 
 type PostDetails = {
@@ -16,7 +17,7 @@ type PostDetails = {
   description: string;
   image?: string;
   createdAt: string;
-  author?: Author;
+  userId?: Author;
 };
 
 function BlogPost() {
@@ -65,14 +66,14 @@ function BlogPost() {
       <div className="flex items-center gap-4 mb-8 text-gray-600 dark:text-gray-400">
       {/* {post.author.avatar && ( */}
             <img
-              src={post.author?.avatar || "https://picsum.photos/seed/john/100/100"}
-              alt={post.author?.name || "Author"}
+              src={post.userId?.avatar || "https://picsum.photos/seed/john/100/100"}
+              alt={post.userId?.name || "Author"}
               className="w-12 h-12 rounded-full"
             />
           {/* )} */}
         <div>
-        <span>{post.author?.name || "Unknown Author"}</span>
-          <div className="text-sm">{post.author?.bio}</div>
+        <span>{post.userId?.name || "Unknown Author"}</span>
+          <div className="text-sm">{post.userId?.bio}</div>
           <time className="text-sm" dateTime={post.createdAt}>
             {format(new Date(post.createdAt), 'MMMM d, yyyy')}
           </time>

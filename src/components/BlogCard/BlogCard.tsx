@@ -8,7 +8,10 @@ type Post = {
   excerpt?: string; // Optional
   image?: string; // Optional
   publishedAt?: string; // Optional
-  userId?: string; // Optional
+  userId: {
+    _id?: string;
+    name: string;
+  }; // Optional
   createdAt?: string; // Optional
   updatedAt?: string; // Optional
   name?: string;
@@ -21,17 +24,20 @@ type BlogCardProps = {
 
 function BlogCard({ post }: BlogCardProps) {
   return (
-    <article className="card hover:shadow-md transition-shadow dark:bg-[#1F2937]/50 backdrop-blur-sm shadow-xl">
+    <article className="card md:h-[395px] hover:shadow-md transition-shadow dark:bg-[#1F2937]/50 backdrop-blur-sm shadow-xl">
       {/* Cover Image */}
 
       <img
-        src={post.image ? post.image : "https://picsum.photos/seed/react/1200/600"}
+        src={post?.image ? post.image : "https://picsum.photos/seed/react/1200/600"}
         alt={post.title}
         className="w-full h-48 object-cover rounded-lg mb-4"
       />
 
 
-      {/* Title */}
+      <div className="flex flex-col justify-between mb-2 md:h-[148px]">
+
+        <div className="flex flex-col gap-2">
+                {/* Title */}
       <h2 className="text-xl dark:text-white text-black/80 font-bold mb-2">
         <Link to={`/post/${post._id}`} className="hover:text-primary">
           {post.title}
@@ -42,6 +48,7 @@ function BlogCard({ post }: BlogCardProps) {
       <p className="text-black/60 dark:text-gray-400 mb-4 line-clamp-2">
         {post.excerpt || post.description || "No description available."}
       </p>
+      </div>
 
       {/* Footer: Author and Date */}
       <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
@@ -49,17 +56,18 @@ function BlogCard({ post }: BlogCardProps) {
           {post.avatar && (
             <img
               src={post.avatar}
-              alt={post.name || "Author"}
+              alt={post?.userId?.name || "Author"}
               className="w-6 h-6 rounded-full"
             />
           )}
-          <span>{post.name || "Unknown Author"}</span>
+          <span>{post?.userId?.name || "Unknown Author"}</span>
         </div>
         {post.createdAt && (
           <time dateTime={post.createdAt}>
             {format(new Date(post.createdAt), 'MMM d, yyyy')}
           </time>
         )}
+      </div>
       </div>
     </article>
   );
