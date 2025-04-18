@@ -7,6 +7,11 @@ interface Content {
   description: string;
   title: string;
   _id: string;
+  userId: {
+    _id?: string;
+    name: string;
+    avatar?: string;
+  };
 }
 
 const fetcher = async (url: string) => {
